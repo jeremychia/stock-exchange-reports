@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "stock-exchange-reports"
+version = "0.1.0"
+description = "ETL pipeline for downloading announcement information, processing of reports"
+authors = ["jeremychia <jeremy.chia@vinted.com>"]
+license = "MIT License"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+requests = "^2.32.3"
+pandas-gbq = "^0.23.0"
+pandas = "^2.2.2"
+beautifulsoup4 = "^4.12.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
