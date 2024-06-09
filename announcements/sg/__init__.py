@@ -30,7 +30,9 @@ def get_sg_sgx_announcements():
         announcement = Announcement.from_api_data(result)
 
         # announcement detail information
-        announcement_detail_data = ParseAnnouncementDetails(announcement.url).parse()
+        announcement_detail_data = ParseAnnouncementDetails(
+            announcement.url, announcement.id
+        ).parse()
         announcement_details = AnnouncementDetails.from_parsed_data(
             announcement_detail_data
         )

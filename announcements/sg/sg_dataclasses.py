@@ -48,6 +48,7 @@ class AnnouncementAttachments:
 
 @dataclass
 class AnnouncementDetails:
+    announcement_id: str = None
     url: str = None
     issuer: str = None
     securities: str = None

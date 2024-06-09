@@ -71,10 +71,11 @@ class SGXAnnouncements:
 
 
 class ParseAnnouncementDetails:
-    def __init__(self, url):
+    def __init__(self, url, id):
         self.url = url
+        self.id = id
         self.soup = self._fetch_and_parse_url(url)
-        self.data = {"url": url}
+        self.data = {"url": url, "announcement_id": id}
 
         self.tag_mappings = {
             "Issuer & Securities": {
