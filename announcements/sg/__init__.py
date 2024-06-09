@@ -1,8 +1,11 @@
 import pandas as pd
 import pandas_gbq
 
-from sg_dataclasses import Announcement, AnnouncementDetails
-from sg_sgx_announcements import SGXAnnouncements, ParseAnnouncementDetails
+from announcements.sg.sg_dataclasses import Announcement, AnnouncementDetails
+from announcements.sg.sg_sgx_announcements import (
+    SGXAnnouncements,
+    ParseAnnouncementDetails,
+)
 
 
 def get_sg_sgx_announcements():

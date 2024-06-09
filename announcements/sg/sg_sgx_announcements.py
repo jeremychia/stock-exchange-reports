@@ -65,7 +65,8 @@ class SGXAnnouncements:
 
     def new_announcements(self):
         missing_entries_df = self._compare_results()
-        return missing_entries_df.to_dict()
+        print(f"Number of new announcements: {len(missing_entries_df)}")
+        return missing_entries_df.to_dict(orient="records")
 
 
 class ParseAnnouncementDetails:
