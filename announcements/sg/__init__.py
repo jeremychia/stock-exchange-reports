@@ -19,13 +19,15 @@ def get_sg_sgx_announcements():
     announcement_attachment_list = []
 
     new_announcements = sgx_data_fetcher.new_announcements()
+    length_new_announcements = len(new_announcements)
 
-    if len(new_announcements) == 0:
+    if length_new_announcements == 0:
         print("No new announcements.")
         return None, None, None
 
-    for result in new_announcements:
+    for idx, result in enumerate(new_announcements):
 
+        print(f"{idx+1}/{length_new_announcements}: Reading; {result['url']}")
         # announcement information, which has links to the details
         announcement = Announcement.from_api_data(result)
 
