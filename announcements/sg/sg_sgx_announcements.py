@@ -48,6 +48,7 @@ class SGXAnnouncements:
         return current_gbq_df
 
     def _compare_results(self):
+        print("Comparing results (downloaded from web versus GBQ)")
         current_gbq_df = self._get_current_gbq_announcements()
         current_website_df = pd.DataFrame(self.results)
 
