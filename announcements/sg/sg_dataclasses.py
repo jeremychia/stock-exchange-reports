@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field, asdict
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
 
@@ -70,7 +70,9 @@ class AnnouncementDetails:
 
     def _parse_broadcast_at(self) -> datetime:
         date_time_format = "%d-%b-%Y %H:%M:%S"
-        return datetime.strptime(self.broadcast_at, date_time_format)
+        local_time = datetime.strptime(self.broadcast_at, date_time_format)
+        utc_time = local_time - timedelta(hours=8)  # Adjusting from GMT+8 to UTC
+        return utc_time
 
     def _parse_financial_period_end(self) -> datetime:
         date_formats = ["%d/%m/%Y", "%d-%b-%Y", "%m/%d/%Y"]
