@@ -8,13 +8,12 @@ from sg_sgx_announcements import SGXAnnouncements, ParseAnnouncementDetails
 def get_sg_sgx_announcements():
 
     sgx_data_fetcher = SGXAnnouncements()
-    sgx_data_fetcher.fetch_data()
 
     announcement_list = []
     announcement_detail_list = []
     announcement_attachment_list = []
 
-    for result in sgx_data_fetcher.results:
+    for result in sgx_data_fetcher.new_announcements():
 
         # announcement information, which has links to the details
         announcement = Announcement.from_api_data(result)

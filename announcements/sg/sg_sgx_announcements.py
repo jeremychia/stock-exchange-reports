@@ -1,4 +1,6 @@
 from bs4 import BeautifulSoup
+import pandas as pd
+import pandas_gbq
 
 import requests
 
@@ -15,6 +17,7 @@ class SGXAnnouncements:
         }
         self.results = []
         self.meta = None
+        self.fetch_data()
 
     def fetch_data(self):
         while True:
@@ -37,6 +40,32 @@ class SGXAnnouncements:
         print(
             f"Check meta['totalItems'] == len(results): {self.meta['totalItems']} == {len(self.results)}: {self.meta['totalItems']==len(self.results)}"
         )
+
+    def _get_current_gbq_announcements(self):
+        current_gbq_df = pandas_gbq.read_gbq(
+            query_or_table="sg_sgx.announcements", project_id="stock-exchange-reports"
+        )
+        return current_gbq_df
+
+    def _compare_results(self):
+        current_gbq_df = self._get_current_gbq_announcements()
+        current_website_df = pd.DataFrame(self.results)
+
+        # Merge the DataFrames to find entries in current_website_df that are not in current_gbq_df
+        merged_df = current_website_df.merge(
+            current_gbq_df[["id"]], on="id", how="left", indicator=True
+        )
+
+        # Filter the DataFrame to get only the entries that are only in current_website_df
+        missing_entries_df = merged_df[merged_df["_merge"] == "left_only"].drop(
+            columns="_merge"
+        )
+
+        return missing_entries_df
+
+    def new_announcements(self):
+        missing_entries_df = self._compare_results()
+        return missing_entries_df.to_dict()
 
 
 class ParseAnnouncementDetails:
